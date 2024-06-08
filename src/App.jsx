@@ -3,11 +3,7 @@ import { useDispatch } from "react-redux";
 import "./css/App.css";
 import auth from "./appwrite/auth.js";
 import { login, logout } from "./store/authSlice";
-import Loading from "./components/common/Loading";
-import { Container } from "./components/container/container.jsx";
-import Button from "./components/common/Button.jsx";
-import Input from "./components/common/Input.jsx";
-
+import { Container, Loading } from "./components"
 
 function App() {
     const [loading, setLoading] = useState(true);
