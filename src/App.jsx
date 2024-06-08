@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import "./css/App.css";
 import auth from "./appwrite/auth.js";
 import { login, logout } from "./store/authSlice";
-import { Container, Loading } from "./components"
+import { Container, Footer, Header, Loading } from "./components";
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -24,9 +24,11 @@ function App() {
     return (
         <>
             {loading ? <Loading /> : ""}
+            <Header />
             <Container>
-                 
+                
             </Container>
+            <Footer />
         </>
     );
 }

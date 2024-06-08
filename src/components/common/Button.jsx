@@ -2,20 +2,21 @@ import React from "react";
 import "../../css/button.css";
 
 const Button = ({
+    children,
     className = "",
-    bgColor = "#0165fc",
+    bgColor = "#A9A9A9",
     fontSize = 20,
     padding = "5px 30px",
-    text,
     type = "submit",
+    borderColor = "black"
 }) => {
     return (
         <button
             type={type}
             className={`button ${className}`}
-            style={{ padding, backgroundColor: bgColor, fontSize }}
+            style={{ padding, backgroundColor: bgColor, fontSize, borderColor }}
         >
-            {text}
+            {children}
         </button>
     );
 };

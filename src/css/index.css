@@ -1,4 +1,47 @@
+:root {
+    --width: 1200px;
+    --primary-background-color: gray;
+}
+
 *{
     margin: 0;
     padding: 0;
+    overflow-x: hidden ;
+}
+
+
+
+.container {
+    width: var(--width);
+    margin: auto;
+}
+
+@media ( max-width: 1200px ){ 
+    :root {
+        --width: 800px;
+    }
+}
+
+@media (max-width: 800px) {
+    :root {
+        --width: 600px;
+    }
+    .navigation {
+        display: none;;
+    }
+    .m-navigation {
+        display: block;
+    }
+}
+
+@media (max-width: 600px) {
+    :root {
+        --width: 400px;
+    }
+}
+
+@media (max-width: 400px) {
+    :root {
+        --width: 300px;
+    }
 }

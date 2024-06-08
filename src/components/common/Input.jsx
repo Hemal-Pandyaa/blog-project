@@ -1,10 +1,26 @@
-import React from 'react';
+import React from "react";
 import "../../css/input.css";
 
-const Input = ({type = "text", placeholder = "Enter Something.....", bgColor="", className="", fontSize="20px", width}) => {
+const Input = (
+    {
+        type = "text",
+        placeholder = "Enter Something.....",
+        bgColor = "",
+        className = "",
+        fontSize = "20px",
+        width,
+    },
+    ref
+) => {
     return (
-        <input type={type} placeholder={placeholder} className={`input ${className}`} style={{backgroundColor: bgColor, fontSize, width}} />
+        <input
+            ref={ref}
+            type={type}
+            placeholder={placeholder}
+            className={`input ${className}`}
+            style={{ backgroundColor: bgColor, fontSize, width }}
+        />
     );
-}
+};
 
-export default Input;
+export default React.forwardRef(Input);
