@@ -4,6 +4,8 @@ import Loading from "./common/Loading.jsx";
 import Container from "./container/container.jsx";
 import Footer from "./footer/Footer.jsx";
 import Header from "./header/Header.jsx";
+import Select from "./common/Select.jsx";
+import Logo from "./common/Logo.jsx";
 
 export {
     Button,
@@ -11,5 +13,7 @@ export {
     Loading,
     Container,
     Footer,
-    Header
+    Header,
+    Select,
+    Logo,
 }
