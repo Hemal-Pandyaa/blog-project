@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useNavigation } from "react-router-dom";
 import Logo from "../common/Logo";
-import { Button } from ".././";
+import { Button, LogoutBtn } from ".././";
 import "../../css/header.css";
 
 const Header = () => {
@@ -60,15 +60,17 @@ const Header = () => {
                             {navItems.map(
                                 (item) =>
                                     item.active && (
-                                        <li key={item.name}
-                                        //  onClick={navigate(item.link)}
-                                         >
+                                        <li
+                                            key={item.name}
+                                            //  onClick={navigate(item.link)}
+                                        >
                                             <Button type={"button"}>
                                                 {item.name}
                                             </Button>
                                         </li>
                                     )
                             )}
+                           {!authStatus ? <li> <Button><LogoutBtn/> LogOut</Button> </li> : ""}
                         </ul>
                     </div>
                     <div className="m-navigation">
@@ -95,6 +97,16 @@ const Header = () => {
                                             </li>
                                         )
                                 )}
+
+                                <li>{!authStatus ? <Button
+                                                    type={"button"}
+                                                    bgColor="transparent"
+                                                    borderColor="transparent"
+                                                    fontSize={"42px"}
+                                                >
+                                                    <LogoutBtn />
+                                                    Log-Out
+                                                </Button> : ""}</li>
                             </ul>
                         </aside>
                     </div>

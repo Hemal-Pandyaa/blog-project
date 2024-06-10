@@ -6,6 +6,7 @@ import Footer from "./footer/Footer.jsx";
 import Header from "./header/Header.jsx";
 import Select from "./common/Select.jsx";
 import Logo from "./common/Logo.jsx";
+import LogoutBtn from "./header/logoutBtn.jsx";
 
 export {
     Button,
@@ -16,4 +17,5 @@ export {
     Header,
     Select,
     Logo,
+    LogoutBtn,
 }

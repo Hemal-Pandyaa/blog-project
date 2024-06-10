@@ -4,7 +4,7 @@ import "../../css/loading.css"
 const Loading = () => {
     return (
         <div className='loading-wrapper'>
-            <div className="loading">
+            <div className="loading ">
 
             </div>
         </div>
