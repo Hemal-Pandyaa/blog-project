@@ -8,7 +8,7 @@ import Select from "./common/Select.jsx";
 import Logo from "./common/Logo.jsx";
 import LogoutBtn from "./header/logoutBtn.jsx";
 import PostCard from "./postCard.jsx";
-import postForm from "./PostForm.jsx";
+import PostForm from "./PostForm.jsx";
 import RTE from "./RTE.jsx"
 import AuthLayout from "./auth/authLayout.jsx"
 import login from "./auth/Login.jsx";
@@ -25,7 +25,7 @@ export {
     Logo,
     LogoutBtn,
     PostCard,
-    postForm,
+    PostForm,
     RTE,
     AuthLayout,
     login,

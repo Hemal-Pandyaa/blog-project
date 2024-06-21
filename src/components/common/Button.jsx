@@ -8,13 +8,15 @@ const Button = ({
     fontSize = 20,
     padding = "5px 30px",
     type = "submit",
-    borderColor = "black"
+    borderColor = "black",
+    ...props
 }) => {
     return (
         <button
             type={type}
             className={`button ${className}`}
             style={{ padding, backgroundColor: bgColor, fontSize, borderColor }}
+            {...props}
         >
             {children}
         </button>

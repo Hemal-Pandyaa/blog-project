@@ -1,11 +1,12 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Input, RTE, Select } from "./";
-import appwriteService from "../appwrite/post.jsx";
+import { Button, Input, RTE, Select } from ".";
+import appwriteService from "../appwrite/post.js";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-function PostForm({ post }) {
+export default function PostForm({ post }) {
+    const [imagePreview, setImagePreview] = useState();
     const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
         defaultValues: {
             title: post?.title || "",
@@ -17,6 +18,10 @@ function PostForm({ post }) {
 
     const navigate = useNavigate();
     const userData = useSelector((state) => state.auth.userData);
+    
+    if(post){
+        appwriteService.getFilePreview(post.featuredImage).then(prevImage => setImagePreview(prevImage))
+    }
 
     const submit = async (data) => {
         if (post) {
@@ -40,8 +45,12 @@ function PostForm({ post }) {
             if (file) {
                 const fileId = file.$id;
                 data.featuredImage = fileId;
+                console.log(userData)
+                const finalData = {...data, userId: userData.$id}
+                console.log(finalData);
                 const dbPost = await appwriteService.createPost({ ...data, userId: userData.$id });
 
+                console.log(dbPost);
                 if (dbPost) {
                     navigate(`/post/${dbPost.$id}`);
                 }
@@ -101,7 +110,7 @@ function PostForm({ post }) {
                 {post && (
                     <div className="w-full mb-4">
                         <img
-                            src={appwriteService.getFilePreview(post.featuredImage)}
+                            src={imagePreview?.href}
                             alt={post.title}
                             className="rounded-lg"
                         />
@@ -120,5 +129,3 @@ function PostForm({ post }) {
         </form>
     );
 }
-
-export default PostForm;

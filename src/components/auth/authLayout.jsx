@@ -1,23 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import Loading from '../common/Loading';
-import { useNavigate } from 'react-router';
-import { useSelector } from 'react-redux';
+import React, {useEffect, useState} from 'react'
+import {useSelector} from 'react-redux'
+import {useNavigate} from 'react-router-dom'
 
-const Protected = ({children, authenticationRequired}) => {
-    const [loading, setLoading] = useState(true);
-    const navigate = useNavigate();
-    const authStatus = useSelector(state => state.auth.status);
+export default function Protected({children, authenticationRequired = true}) {
+
+    const navigate = useNavigate()
+    const [loader, setLoader] = useState(true)
+    const authStatus = useSelector(state => state.auth.status)
+
     useEffect(() => {
-        if(authenticationRequired && authStatus === false){
-            navigate('/login');
-        }else if(!authenticationRequired && authStatus === true){
-            navigate('/home');
-        }
-        setLoading(false);
-    }, [authenticationRequired]);
-    return (
-        loading ? <Loading /> : {children}
-    );
-}
+        //TODO: make it more easy to understand
+        
+        // if (authStatus ===true){
+        //     navigate("/")
+        // } else if (authStatus === false) {
+        //     navigate("/login")
+        // }
+        
+        //let authValue = authStatus === true ? true : false
 
-export default Protected;
+        if(authenticationRequired && authStatus !== authenticationRequired){
+            navigate("/login")
+        } else if(!authenticationRequired && authStatus !== authenticationRequired){
+            navigate("/")
+        }
+        setLoader(false)
+    }, [authStatus, navigate, authenticationRequired])
+
+  return loader ? <h1>Loading...</h1> : <>{children}</>
+}

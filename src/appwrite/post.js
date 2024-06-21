@@ -1,9 +1,9 @@
 import { conf } from "../config/conf";
-import { Client, Database, Bucket, Storage, ID, Query } from "appwrite";
+import { Client, Databases, Storage, ID, Query } from "appwrite";
 
 export class PostService {
-client = new Client();
-db;
+    client = new Client();
+    db;
     bucket;
 
     constructor() {
@@ -11,8 +11,8 @@ db;
             .setEndpoint(conf.appwriteUrl)
             .setProject(conf.appwriteProjectId);
 
-        this.db = new Database(this.client);
-        this.bucket = new Bucket(this.client);
+        this.db = new Databases(this.client);
+        this.bucket = new Storage(this.client);
     }
 
     async createPost({ title, content, featuredImage, slug, userId, status }) {
@@ -20,6 +20,7 @@ db;
             return await this.db.createDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
+
                 slug,
                 {
                     title,
@@ -80,12 +81,15 @@ db;
 
     async getAllPosts() {
         try {
-            const query = Query.equal("status", "active");
-            return await this.db.listDocuments(
+            const query = Query.equal("status", ["active"]);
+
+            const result = await this.db.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
-                query
+                [query]
             );
+
+            return result;
         } catch (error) {
             console.log("APPWRITE :: GETALLPOSTS :: ERROR", error);
             return false;
@@ -94,6 +98,7 @@ db;
 
     async uploadFile(file) {
         try {
+            console.log(this.bucket.createFile)
             return await this.bucket.createFile(
                 conf.appwriteBucketId,
                 ID.unique(),

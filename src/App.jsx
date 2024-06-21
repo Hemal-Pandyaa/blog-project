@@ -4,6 +4,7 @@ import "./css/App.css";
 import auth from "./appwrite/auth.js";
 import { login, logout } from "./store/authSlice";
 import { Container, Footer, Header, Loading } from "./components";
+import { Outlet } from "react-router";
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -23,12 +24,15 @@ function App() {
 
     return (
         <>
+
             {loading ? <Loading /> : ""}
+            <div className="bg-gray-600">
             <Header />
-            <Container>
-                
-            </Container>
+                <Container>
+                    <Outlet />
+                </Container>
             <Footer />
+            </div>
         </>
     );
 }

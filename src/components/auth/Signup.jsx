@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useRef, useState} from 'react'
 import authService from '../../appwrite/auth'
 import {Link ,useNavigate} from 'react-router-dom'
 import {login} from '../../store/authSlice'
@@ -7,6 +7,8 @@ import {useDispatch} from 'react-redux'
 import {useForm} from 'react-hook-form'
 
 function Signup() {
+    const email = useRef();
+    const password = useRef();
     const navigate = useNavigate()
     const [error, setError] = useState("")
     const dispatch = useDispatch()
@@ -17,7 +19,8 @@ function Signup() {
         try {
             const userData = await authService.createAccount(data)
             if (userData) {
-                const userData = await authService.getCurrentUser()
+                const userData = await authService.getCurrentUser();
+                console.log(userData)
                 if(userData) dispatch(login(userData));
                 navigate("/")
             }
@@ -25,6 +28,7 @@ function Signup() {
             setError(error.message)
         }
     }
+    
 
   return (
     <div className="flex items-center justify-center">
@@ -46,33 +50,26 @@ function Signup() {
                 </p>
                 {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
 
-                <form onSubmit={handleSubmit(create)}>
+                <form onSubmit={handleSubmit(create, (err) => setError(err.name))}>
                     <div className='space-y-5'>
                         <Input
                         label="Full Name: "
                         placeholder="Enter your full name"
-                        {...register("name", {
-                            required: true,
-                        })}
+                        {...register("name")}
                         />
                         <Input
                         label="Email: "
                         placeholder="Enter your email"
                         type="email"
-                        {...register("email", {
-                            required: true,
-                            validate: {
-                                matchPatern: (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
-                                "Email address must be a valid address",
-                            }
-                        })}
+                        ref={email}
+                        {...register("email", {required: true})}
                         />
                         <Input
                         label="Password: "
                         type="password"
                         placeholder="Enter your password"
-                        {...register("password", {
-                            required: true,})}
+                        ref={password}
+                        {...register("password", {required: true})}
                         />
                         <Button type="submit" className="w-full">
                             Create Account
